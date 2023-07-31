@@ -1,0 +1,27 @@
+#!/bin/sh
+# PROVIDE: netinfo
+# REQUIRE: DAEMON NETWORKING
+#
+# Install rc.d service use the following command on freebsd
+#
+# mkdir /usr/local/etc/rc.d/
+# ee /usr/local/etc/rc.d/netinfo && chmod +x /usr/local/etc/rc.d/netinfo
+# service netinfo enable && service netinfo start
+
+. /etc/rc.subr
+
+name=nwg
+rcvar=${name}_enable
+
+command="/usr/local/bin/${name}"
+pidfile="/var/run/${name}.pid"
+
+start_cmd="${name}_start"
+
+nwg_start() {
+  echo "Starting ${name}."
+  /usr/sbin/daemon -cf -p ${pidfile} ${command} -id DEVICE_UUID -url NETINFO_RECORD_URL -interface pppoe0 -wg_interface wg0 -interval 30m
+}
+
+load_rc_config $name
+run_rc_command "$1"

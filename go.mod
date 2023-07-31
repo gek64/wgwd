@@ -1,4 +1,4 @@
-module netinfo-wireguard
+module nwg
 
 go 1.20
 

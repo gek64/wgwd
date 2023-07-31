@@ -41,19 +41,19 @@ func GetEndpoints(interfaceName string) (endpoints []Endpoint, err error) {
     return endpoints, nil
 }
 
-// GetEndpointAddrPort 获取指定 key 的 endpoint 地址与端口
-func GetEndpointAddrPort(interfaceName string, peerKey string) (addrPort netip.AddrPort, err error) {
+// GetEndpointByKey 获取指定 key 的 endpoint
+func GetEndpointByKey(interfaceName string, peerKey string) (endpoint Endpoint, err error) {
     endpoints, err := GetEndpoints(interfaceName)
     if err != nil {
-        return netip.AddrPort{}, err
+        return Endpoint{}, err
     }
 
-    for _, endpoint := range endpoints {
-        if endpoint.PublicKey == peerKey {
-            return endpoint.AddrPort, nil
+    for _, e := range endpoints {
+        if e.PublicKey == peerKey {
+            return e, nil
         }
     }
-    return netip.AddrPort{}, fmt.Errorf("no ip address and port")
+    return Endpoint{}, fmt.Errorf("no ip address and port")
 }
 
 // SetEndpoint 设置 endpoint

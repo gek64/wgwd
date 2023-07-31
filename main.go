@@ -5,7 +5,7 @@ import (
     "fmt"
     "github.com/gek64/gek/gToolbox"
     "log"
-    "netinfo-wireguard/internal/client"
+    "nwg/internal/client"
     "os"
     "time"
 )
@@ -37,7 +37,7 @@ func init() {
 
     flag.StringVar(&cliUsername, "username", "", "-username bob")
     flag.StringVar(&cliPassword, "password", "", "-password 123456")
-    flag.DurationVar(&cliInterval, "interval", time.Hour, "-interval 1h")
+    flag.DurationVar(&cliInterval, "interval", 0, "-interval 1h")
     flag.BoolVar(&cliSkipCertificateVerify, "skip-certificate-verify", false, "-skip-certificate-verify")
 
     flag.BoolVar(&cliHelp, "h", false, "show help")
@@ -47,7 +47,7 @@ func init() {
     // 重写显示用法函数
     flag.Usage = func() {
         var helpInfo = `Usage:
-netinfo-wireguard [Command] {Server Option} [Other Option]
+nwg [Command] {Server Option} [Other Option]
 	
 Command:
   -h                : show help
@@ -58,18 +58,19 @@ Server Option:
   -url           <Url>         : set server url
   -interface     <Name>        : set server interface name
   -wg_interface  <Name>        : set wireguard interface name
-  -wg_peer_key   <Key>         : set wireguard peer key
 
 Other Option:
-  -username      <Username>    : set client basic auth username
-  -password      <Password>    : set client password
+  -wg_peer_key   <Key>         : set wireguard peer key
   -interval      <Time>        : set client interval
   -skip-certificate-verify     : skip tls certificate verification for http requests
+  -username      <Username>    : set client basic auth username
+  -password      <Password>    : set client basic auth password
 	
 Example:
-  1) netinfo-wireguard -id 80000000-4000-4000-4000-120000000000 -url http://localhost:1996/record/ -interface pppoe0 -wg_interface wg0 -wg_peer_key aInIXfBwnwrfr/oc8oW2Vhyhh/5v3mvS5MmYQbMiXm4=
-  2) netinfo-wireguard -h
-  3) netinfo-wireguard -v`
+  1) nwg -id DEVICE_UUID -url http://localhost:1996/record/ -interface pppoe0 -wg_interface wg0
+  2) nwg -id DEVICE_UUID -url http://localhost:1996/record/ -interface pppoe0 -wg_interface wg0 -interval 30m
+  3) nwg -h
+  4) nwg -v`
 
         fmt.Println(helpInfo)
     }
@@ -93,11 +94,21 @@ Example:
     }
 
     // 输入参数检测
-    if cliId == "" || cliUrl == "" || cliInterface == "" || cliWgInterface == "" || cliWgPeerKey == "" {
+    if cliId == "" || cliUrl == "" || cliInterface == "" || cliWgInterface == "" {
         log.Panicln("incomplete input parameters")
     }
 }
 
 func main() {
-    client.UpdateWireGuardEndpointLoop(cliId, cliUrl, cliInterface, cliWgInterface, cliWgPeerKey, cliUsername, cliPassword, cliSkipCertificateVerify, cliInterval)
+    // cliInterval 为 0, 则只执行一次就停止, 若 cliInterval 不为 0,则定时循环运行
+    if cliInterval != 0 {
+        client.UpdateWireGuardEndpointLoop(cliId, cliUrl, cliInterface, cliWgInterface, cliWgPeerKey, cliUsername, cliPassword, cliSkipCertificateVerify, cliInterval)
+    } else {
+        err := client.UpdateWireGuardEndpoint(cliId, cliUrl, cliInterface, cliWgInterface, cliWgPeerKey, cliUsername, cliPassword, cliSkipCertificateVerify)
+        if err != nil {
+            log.Println(err)
+        } else {
+            log.Println("update completed")
+        }
+    }
 }

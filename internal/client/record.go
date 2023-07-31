@@ -21,6 +21,7 @@ type Record struct {
     NetInterfaces []NetInterface `json:"netInterfaces"`
 }
 
+// GetRecord 从服务端 netinfo 服务获取指定 id 的记录
 func GetRecord(id string, serverUrl string, username string, password string, skipCertVerify bool) (record Record, err error) {
     client := req.C()
 
@@ -49,6 +50,7 @@ func GetRecord(id string, serverUrl string, username string, password string, sk
     }
 }
 
+// GetNewEndpointAddr 从记录中获取 endpoint 的地址
 func (r Record) GetNewEndpointAddr(targetInterfaceName string) (ip string, err error) {
     for _, netInterface := range r.NetInterfaces {
         if netInterface.Name == targetInterfaceName {
