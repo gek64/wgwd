@@ -73,13 +73,30 @@ chmod +x /usr/local/etc/rc.d/nwg
 service nwg enable && service nwg restart && service nwg status
 ```
 
-## Compile
+### OpenWRT(init.d)
 
-### How to compile if prebuilt binaries are not found
+```sh
+curl -Lo /usr/local/etc/rc.d/nwg https://github.com/gek64/nwg/raw/main/configs/nwg.rcd
+chmod +x /usr/local/etc/rc.d/nwg
+service nwg enable && service nwg restart && service nwg status
+```
+
+## Compile
 
 ```sh
 git clone https://github.com/gek64/nwg.git
 cd nwg
+go build -v -trimpath -ldflags "-s -w"
+```
+
+## For openwrt on mipsle router
+
+```sh
+git clone https://github.com/gek64/nwg.git
+cd nwg
+export GOOS=linux
+export GOARCH=mipsle
+export GOMIPS=softfloat
 go build -v -trimpath -ldflags "-s -w"
 ```
 
