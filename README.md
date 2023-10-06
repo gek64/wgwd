@@ -76,8 +76,8 @@ service nwg enable && service nwg restart && service nwg status
 ### OpenWRT(init.d)
 
 ```sh
-curl -Lo /usr/local/etc/rc.d/nwg https://github.com/gek64/nwg/raw/main/configs/nwg.rcd
-chmod +x /usr/local/etc/rc.d/nwg
+curl -Lo /etc/init.d/nwg https://github.com/gek64/nwg/raw/main/configs/nwg.initd
+chmod +x /etc/init.d/nwg
 service nwg enable && service nwg restart && service nwg status
 ```
 
