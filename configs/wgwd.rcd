@@ -20,7 +20,7 @@ start_cmd="${name}_start"
 
 nwg_start() {
   echo "Starting ${name}."
-  /usr/sbin/daemon -cf -p ${pidfile} ${command} -id DEVICE_UUID -url NETINFO_RECORD_URL -interface pppoe0 -wg_interface wg0 -interval 30m
+  /usr/sbin/daemon -cf -p ${pidfile} ${command} -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0 -interval 5m
 }
 
 load_rc_config $name

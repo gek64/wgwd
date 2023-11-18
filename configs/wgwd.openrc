@@ -2,7 +2,7 @@
 # https://github.com/OpenRC/openrc/blob/master/service-script-guide.md
 
 command="/usr/local/bin/nwg"
-command_args="-id DEVICE_UUID -url NETINFO_RECORD_URL -interface pppoe0 -wg_interface wg0 -interval 30m"
+command_args="-id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0 -interval 5m"
 command_background=true
 command_user="root"
 pidfile="/run/${RC_SVCNAME}.pid"

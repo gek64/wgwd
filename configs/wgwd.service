@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/local/bin/nwg -id DEVICE_UUID -url NETINFO_RECORD_URL -interface pppoe0 -wg_interface wg0 -interval 30m
+ExecStart=/usr/local/bin/nwg -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0 -interval 5m
 Restart=on-failure
 SyslogIdentifier=NetInfo Server
 

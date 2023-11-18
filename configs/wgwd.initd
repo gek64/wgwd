@@ -1,8 +1,8 @@
 #!/bin/sh /etc/rc.common
 START=90
 USE_PROCD=1
-COMMAND="/usr/bin/nwg"
-Command_Args="-id DEVICE_UUID -url NETINFO_RECORD_URL -interface pppoe0 -wg_interface wg0 -interval 30m"
+COMMAND="/usr/bin/wgwd"
+Command_Args="-id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0 -interval 5m"
 
 start_service() {
   procd_open_instance

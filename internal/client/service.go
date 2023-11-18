@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 	"log"
-	"nwg/internal/wireguard"
 	"time"
+	"wgwd/internal/wireguard"
 )
 
 // UpdateWireGuardEndpoint 更新 wireguard endpoint

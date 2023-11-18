@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/gek64/gek/gToolbox"
 	"log"
-	"nwg/internal/client"
 	"os"
 	"time"
+	"wgwd/internal/client"
 )
 
 var (
@@ -47,7 +47,7 @@ func init() {
 	// 重写显示用法函数
 	flag.Usage = func() {
 		var helpInfo = `Usage:
-nwg [Command] {Server Option} [Other Option]
+wgwd [Command] {Server Option} [Other Option]
 	
 Command:
   -h                : show help
@@ -67,10 +67,10 @@ Other Option:
   -password      <Password>    : set client basic auth password
 	
 Example:
-  1) nwg -id DEVICE_UUID -url http://localhost:1996/record/ -interface pppoe0 -wg_interface wg0
-  2) nwg -id DEVICE_UUID -url http://localhost:1996/record/ -interface pppoe0 -wg_interface wg0 -interval 30m
-  3) nwg -h
-  4) nwg -v`
+  1) wgwd -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0
+  2) wgwd -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0 -interval 5m
+  3) wgwd -h
+  4) wgwd -v`
 
 		fmt.Println(helpInfo)
 	}

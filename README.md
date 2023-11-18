@@ -9,7 +9,7 @@
 
 ```
 Usage:
-nwg [Command] {Server Option} [Other Option]
+wgwd [Command] {Server Option} [Other Option]
 	
 Command:
   -h                : show help
@@ -29,22 +29,22 @@ Other Option:
   -password      <Password>    : set client basic auth password
 	
 Example:
-  1) nwg -id DEVICE_UUID -url http://localhost:1996/record/ -interface pppoe0 -wg_interface wg0
-  2) nwg -id DEVICE_UUID -url http://localhost:1996/record/ -interface pppoe0 -wg_interface wg0 -interval 30m
-  3) nwg -h
-  4) nwg -v
+  1) wgwd -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0
+  2) wgwd -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0 -interval 5m
+  3) wgwd -h
+  4) wgwd -v
 ```
 
 ## Install
 
 ```sh
 # system is linux(debian,redhat linux,ubuntu,fedora...) and arch is amd64
-curl -Lo /usr/local/bin/nwg https://github.com/gek64/nwg/releases/latest/download/nwg-linux-386
-chmod +x /usr/local/bin/nwg
+curl -Lo /usr/local/bin/wgwd https://github.com/gek64/wgwd/releases/latest/download/wgwd-linux-386
+chmod +x /usr/local/bin/wgwd
 
 # system is freebsd and arch is amd64
-curl -Lo /usr/local/bin/nwg https://github.com/gek64/nwg/releases/latest/download/nwg-freebsd-amd64
-chmod +x /usr/local/bin/nwg
+curl -Lo /usr/local/bin/wgwd https://github.com/gek64/wgwd/releases/latest/download/wgwd-freebsd-amd64
+chmod +x /usr/local/bin/wgwd
 ```
 
 ## Install Service
@@ -52,48 +52,48 @@ chmod +x /usr/local/bin/nwg
 ### Linux(systemd)
 
 ```sh
-curl -Lo /etc/systemd/system/nwg.service https://github.com/gek64/nwg/raw/main/configs/nwg.service
-systemctl enable nwg && systemctl restart nwg && systemctl status nwg
+curl -Lo /etc/systemd/system/wgwd.service https://github.com/gek64/wgwd/raw/main/configs/wgwd.service
+systemctl enable wgwd && systemctl restart wgwd && systemctl status wgwd
 ```
 
 ### Linux(openrc)
 
 ```sh
-curl -Lo /etc/init.d/nwg https://github.com/gek64/nwg/raw/main/configs/nwg.openrc
-chmod +x /etc/init.d/nwg
-rc-update add nwg && rc-service nwg restart && rc-service nwg status
+curl -Lo /etc/init.d/wgwd https://github.com/gek64/wgwd/raw/main/configs/wgwd.openrc
+chmod +x /etc/init.d/wgwd
+rc-update add wgwd && rc-service wgwd restart && rc-service wgwd status
 ```
 
 ### FreeBSD(rc.d)
 
 ```sh
 mkdir /usr/local/etc/rc.d/
-curl -Lo /usr/local/etc/rc.d/nwg https://github.com/gek64/nwg/raw/main/configs/nwg.rcd
-chmod +x /usr/local/etc/rc.d/nwg
-service nwg enable && service nwg restart && service nwg status
+curl -Lo /usr/local/etc/rc.d/wgwd https://github.com/gek64/wgwd/raw/main/configs/wgwd.rcd
+chmod +x /usr/local/etc/rc.d/wgwd
+service wgwd enable && service wgwd restart && service wgwd status
 ```
 
 ### OpenWRT(init.d)
 
 ```sh
-curl -Lo /etc/init.d/nwg https://github.com/gek64/nwg/raw/main/configs/nwg.initd
-chmod +x /etc/init.d/nwg
-service nwg enable && service nwg restart && service nwg status
+curl -Lo /etc/init.d/wgwd https://github.com/gek64/wgwd/raw/main/configs/wgwd.initd
+chmod +x /etc/init.d/wgwd
+service wgwd enable && service wgwd restart && service wgwd status
 ```
 
 ## Compile
 
 ```sh
-git clone https://github.com/gek64/nwg.git
-cd nwg
+git clone https://github.com/gek64/wgwd.git
+cd wgwd
 go build -v -trimpath -ldflags "-s -w"
 ```
 
 ## For openwrt on mipsle router
 
 ```sh
-git clone https://github.com/gek64/nwg.git
-cd nwg
+git clone https://github.com/gek64/wgwd.git
+cd wgwd
 export GOOS=linux
 export GOARCH=mipsle
 export GOMIPS=softfloat
