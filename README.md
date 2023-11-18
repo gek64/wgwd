@@ -1,4 +1,4 @@
-# Netinfo WireGuard(nwg)
+# WireGuard watchdog(wgwd)
 
 ## Features
 
