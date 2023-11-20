@@ -58,7 +58,7 @@ jobs:
           go mod tidy
           "${{ github.workspace }}/gobuilder_runner" -main -d bin
           
-          # for openwrt mipsle router
+          # 编译 openwrt mipsle 版本
           export GOOS=linux
           export GOARCH=mipsle
           export GOMIPS=softfloat
