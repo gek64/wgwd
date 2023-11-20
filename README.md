@@ -22,19 +22,19 @@ wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoin
 ## Get local network information from minio s3 server and decrypt the file
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
 ## Get Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123" -interval 5s
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123" -interval="5s"
 
 # Get local network information from webdav server
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
 ## Get local network information from webdav server and decrypt the file
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
 ## Loop Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123" -interval 5s
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123" -interval="5s"
 
 # Get local network information from nconnect server
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
 ## Loop Get local network information from nconnect server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/" -interval 5s
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/" -interval="5s"
 ```
 
 ## Install
