@@ -2,37 +2,39 @@
 
 ## Features
 
-- Get IP from netinfo
-- Update WireGuard Endpoint IP
+- Get IP from remote or a file
+- Periodically update WireGuard endpoint IP
 
 ## Usage
 
-```
-Usage:
-wgwd [Command] {Server Option} [Other Option]
-	
-Command:
-  -h                : show help
-  -v                : show version
+```sh
+# Get local network information from a file
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -id="center" -filepath="./center.json"
+## Get local network information from a file and decrypt the file
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -id="center" -filepath="./center.json" -encryption_key="admin123"
+## Loop get local network information from a file and decrypt the file
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -id="center" -filepath="./center.json" -encryption_key="admin123" -interval="5m"
 
-Server Option:
-  -id            <ID>          : set server id
-  -url           <Url>         : set server url
-  -interface     <Name>        : set server interface name
-  -wg_interface  <Name>        : set wireguard interface name
+# Get local network information from s3 server
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="https://s3.amazonaws.com" -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+## Get local network information from minio s3 server
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+## Get local network information from minio s3 server and decrypt the file
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
+## Get Get local network information from minio s3 server and decrypt the file
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123" -interval 5s
 
-Other Option:
-  -wg_peer_key   <Key>         : set wireguard peer key
-  -interval      <Time>        : set client interval
-  -skip-certificate-verify     : skip tls certificate verification for http requests
-  -username      <Username>    : set client basic auth username
-  -password      <Password>    : set client basic auth password
-	
-Example:
-  1) wgwd -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0
-  2) wgwd -id center -url http://localhost:1996/ -interface pppoe0 -wg_interface wg0 -interval 5m
-  3) wgwd -h
-  4) wgwd -v
+# Get local network information from webdav server
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
+## Get local network information from webdav server and decrypt the file
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
+## Loop Get local network information from webdav server and decrypt the file
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123" -interval 5s
+
+# Get local network information from nconnect server
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
+## Loop Get local network information from nconnect server
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/" -interval 5s
 ```
 
 ## Install
