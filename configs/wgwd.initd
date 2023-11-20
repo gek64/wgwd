@@ -2,7 +2,7 @@
 START=90
 USE_PROCD=1
 COMMAND="/usr/bin/wgwd"
-Command_Args="get -remote_interface=pppoe0 -wg_interface=wg0 nconnect -id=center -endpoint=http://localhost:1996/ -interval=5s"
+Command_Args="get -remote_interface=pppoe0 -wg_interface=wg0 -interval=5m webdav -endpoint=https://192.168.1.2/ -username=admin -password=adminadmin -filepath=/dav/center.json -encryption_key=adminadmin"
 
 start_service() {
   procd_open_instance
