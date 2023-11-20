@@ -6,7 +6,10 @@ import (
 	"log"
 	"os"
 	"time"
+	"wgwd/internal/receive/file"
 	"wgwd/internal/receive/nconnect"
+	"wgwd/internal/receive/s3"
+	"wgwd/internal/receive/webdav"
 )
 
 func main() {
@@ -56,6 +59,11 @@ func main() {
 					Usage:       "set wireguard peer key",
 					Destination: &wg_peer_key,
 				},
+				&cli.DurationFlag{
+					Name:        "interval",
+					Usage:       "set send interval",
+					Destination: &interval,
+				},
 			},
 
 			Subcommands: []*cli.Command{
@@ -63,12 +71,6 @@ func main() {
 					Name:  "file",
 					Usage: "get network information from filesystem",
 					Flags: []cli.Flag{
-						&cli.StringFlag{
-							Name:        "id",
-							Usage:       "set id",
-							Required:    true,
-							Destination: &id,
-						},
 						&cli.StringFlag{
 							Name:        "filepath",
 							Usage:       "set file path",
@@ -80,17 +82,15 @@ func main() {
 							Usage:       "set file encryption key",
 							Destination: &encryption_key,
 						},
-						&cli.DurationFlag{
-							Name:        "interval",
-							Usage:       "set send interval",
-							Destination: &interval,
-						},
 					},
 					Action: func(ctx *cli.Context) error {
 						if interval != 0 {
-
+							file.ReceiveRequestLoop(filepath, []byte(encryption_key), remote_interface, wg_interface, wg_peer_key, interval)
 						} else {
-
+							err := file.ReceiveRequest(filepath, []byte(encryption_key), remote_interface, wg_interface, wg_peer_key)
+							if err != nil {
+								return err
+							}
 						}
 						return nil
 					},
@@ -99,12 +99,6 @@ func main() {
 					Name:  "s3",
 					Usage: "get network information from s3 server",
 					Flags: []cli.Flag{
-						&cli.StringFlag{
-							Name:        "id",
-							Usage:       "set id",
-							Required:    true,
-							Destination: &id,
-						},
 						&cli.BoolFlag{
 							Name:        "allow_insecure",
 							Usage:       "set allow insecure connect",
@@ -115,11 +109,6 @@ func main() {
 							Name:        "encryption_key",
 							Usage:       "set file encryption key",
 							Destination: &encryption_key,
-						},
-						&cli.DurationFlag{
-							Name:        "interval",
-							Usage:       "set send interval",
-							Destination: &interval,
 						},
 						&cli.StringFlag{
 							Name:        "endpoint",
@@ -171,9 +160,12 @@ func main() {
 					},
 					Action: func(ctx *cli.Context) error {
 						if interval != 0 {
-
+							s3.ReceiveRequestLoop(endpoint, regin, username, password, sts_token, path_style, allow_insecure, bucket, object_path, []byte(encryption_key), remote_interface, wg_interface, wg_peer_key, interval)
 						} else {
-
+							err := s3.ReceiveRequest(endpoint, regin, username, password, sts_token, path_style, allow_insecure, bucket, object_path, []byte(encryption_key), remote_interface, wg_interface, wg_peer_key)
+							if err != nil {
+								return err
+							}
 						}
 						return nil
 					},
@@ -182,12 +174,6 @@ func main() {
 					Name:  "webdav",
 					Usage: "get network information from webdav server",
 					Flags: []cli.Flag{
-						&cli.StringFlag{
-							Name:        "id",
-							Usage:       "set id",
-							Required:    true,
-							Destination: &id,
-						},
 						&cli.BoolFlag{
 							Name:        "allow_insecure",
 							Usage:       "set allow insecure connect",
@@ -198,11 +184,6 @@ func main() {
 							Name:        "encryption_key",
 							Usage:       "set file encryption key",
 							Destination: &encryption_key,
-						},
-						&cli.DurationFlag{
-							Name:        "interval",
-							Usage:       "set send interval",
-							Destination: &interval,
 						},
 						&cli.StringFlag{
 							Name:        "endpoint",
@@ -229,9 +210,12 @@ func main() {
 					},
 					Action: func(ctx *cli.Context) error {
 						if interval != 0 {
-
+							webdav.ReceiveRequestLoop(endpoint, username, password, allow_insecure, filepath, []byte(encryption_key), remote_interface, wg_interface, wg_peer_key, interval)
 						} else {
-
+							err := webdav.ReceiveRequest(endpoint, username, password, allow_insecure, filepath, []byte(encryption_key), remote_interface, wg_interface, wg_peer_key)
+							if err != nil {
+								return err
+							}
 						}
 						return nil
 					},
@@ -252,11 +236,6 @@ func main() {
 							Value:       false,
 							Destination: &allow_insecure,
 						},
-						&cli.DurationFlag{
-							Name:        "interval",
-							Usage:       "set send interval",
-							Destination: &interval,
-						},
 						&cli.StringFlag{
 							Name:        "endpoint",
 							Usage:       "set nconnect server endpoint",
@@ -270,7 +249,7 @@ func main() {
 						} else {
 							err := nconnect.ReceiveRequest(id, endpoint, username, password, allow_insecure, remote_interface, wg_interface, wg_peer_key)
 							if err != nil {
-								log.Println(err)
+								return err
 							}
 						}
 						return nil
@@ -287,7 +266,7 @@ func main() {
 
 	app := &cli.App{
 		Usage:    "WireGuard Watchdog",
-		Version:  "v1.10",
+		Version:  "v1.20",
 		Commands: cmds,
 	}
 

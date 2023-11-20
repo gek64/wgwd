@@ -1,0 +1,48 @@
+package webdav
+
+import (
+	"github.com/gek64/gek/gWebDAV"
+	"io"
+	"log"
+	"time"
+	"wgwd/internal/netinfo"
+	"wgwd/internal/wireguard"
+)
+
+// getNetInfo 从 webdav 服务器获取指定 id 的网络信息
+func getNetInfo(endpoint string, username string, password string, allowInsecure bool, filepath string, encryptionKey []byte) (data *netinfo.Data, err error) {
+	client, err := gWebDAV.NewClient(endpoint, username, password, allowInsecure)
+	response, err := client.Download(filepath)
+	if err != nil {
+		return nil, err
+	}
+
+	// 读取从 webdav 服务器下载的数据流
+	d, err := io.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+	return netinfo.GetFromJsonBytes(d, encryptionKey)
+}
+
+func ReceiveRequest(endpoint string, username string, password string, allowInsecure bool, filepath string, encryptionKey []byte, remoteInterface string, wgInterface string, wgPeerKey string) (err error) {
+	data, err := getNetInfo(endpoint, username, password, allowInsecure, filepath, encryptionKey)
+	if err != nil {
+		return err
+	}
+	publicIP, err := data.GetPublicIP(remoteInterface)
+	if err != nil {
+		return err
+	}
+	return wireguard.UpdateEndpoint(wgInterface, wgPeerKey, publicIP, -1)
+}
+
+func ReceiveRequestLoop(endpoint string, username string, password string, allowInsecure bool, filepath string, encryptionKey []byte, remoteInterface string, wgInterface string, wgPeerKey string, interval time.Duration) {
+	for {
+		err := ReceiveRequest(endpoint, username, password, allowInsecure, filepath, encryptionKey, remoteInterface, wgInterface, wgPeerKey)
+		if err != nil {
+			log.Println(err)
+		}
+		time.Sleep(interval)
+	}
+}

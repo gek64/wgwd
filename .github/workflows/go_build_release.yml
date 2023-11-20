@@ -58,11 +58,8 @@ jobs:
           go mod tidy
           "${{ github.workspace }}/gobuilder_runner" -main -d bin
           
-          # 编译 openwrt mipsle 版本
-          export GOOS=linux
-          export GOARCH=mipsle
-          export GOMIPS=softfloat
-          go build -v -trimpath -ldflags "-s -w" -o bin/wgwd-linux-mipsle-softfloat
+          # 编译 mipsle softfloat 版本
+          GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -v -trimpath -ldflags "-s -w" -o bin/build-linux-mipsle-softfloat
 
           # 显示文件路径(debug)
           # ls .. -R -las

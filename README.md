@@ -9,27 +9,27 @@
 
 ```sh
 # Get local network information from a file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -id="center" -filepath="./center.json"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -filepath="./center.json"
 ## Get local network information from a file and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -id="center" -filepath="./center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -filepath="./center.json" -encryption_key="admin123"
 ## Loop get local network information from a file and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -id="center" -filepath="./center.json" -encryption_key="admin123" -interval="5m"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -filepath="./center.json" -encryption_key="admin123" -interval="5m"
 
 # Get local network information from s3 server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="https://s3.amazonaws.com" -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="https://s3.amazonaws.com" -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
 ## Get local network information from minio s3 server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
 ## Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
 ## Get Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -id="center" -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123" -interval="5s"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123" -interval="5s"
 
 # Get local network information from webdav server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
 ## Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
 ## Loop Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -id="center" -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123" -interval="5s"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123" -interval="5s"
 
 # Get local network information from nconnect server
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
@@ -96,10 +96,7 @@ go build -v -trimpath -ldflags "-s -w"
 ```sh
 git clone https://github.com/gek64/wgwd.git
 cd wgwd
-export GOOS=linux
-export GOARCH=mipsle
-export GOMIPS=softfloat
-go build -v -trimpath -ldflags "-s -w"
+GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -v -trimpath -ldflags "-s -w"
 ```
 
 ## License
