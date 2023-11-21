@@ -44,7 +44,7 @@ wgwd decrypt -filepath "./center.json" -encryption_key="admin123"
 
 ```sh
 # system is linux(debian,redhat linux,ubuntu,fedora...) and arch is amd64
-curl -Lo /usr/local/bin/wgwd https://github.com/gek64/wgwd/releases/latest/download/wgwd-linux-386
+curl -Lo /usr/local/bin/wgwd https://github.com/gek64/wgwd/releases/latest/download/wgwd-linux-amd64
 chmod +x /usr/local/bin/wgwd
 
 # system is freebsd and arch is amd64
