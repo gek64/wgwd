@@ -61,7 +61,7 @@ curl -Lo /etc/systemd/system/wgwd.service https://github.com/gek64/wgwd/raw/main
 systemctl enable wgwd && systemctl restart wgwd && systemctl status wgwd
 ```
 
-### Linux(openrc)
+### Alpine Linux(openrc)
 
 ```sh
 curl -Lo /etc/init.d/wgwd https://github.com/gek64/wgwd/raw/main/configs/wgwd.openrc
