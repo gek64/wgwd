@@ -11,7 +11,7 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.0.6 // indirect
-	github.com/aws/aws-sdk-go v1.48.0 // indirect
+	github.com/aws/aws-sdk-go v1.48.1 // indirect
 	github.com/cloudflare/circl v1.3.6 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.3 // indirect
 	github.com/gaukas/godicttls v0.0.4 // indirect

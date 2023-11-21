@@ -9,12 +9,12 @@ import (
 )
 
 // getNetInfo 从 file 文件获取指定 id 的网络信息
-func getNetInfo(filepath string, encryptionKey []byte) (data *netinfo.Data, err error) {
+func getNetInfo(filepath string, encryptionKey []byte) (data *netinfo.NetInfo, err error) {
 	d, err := os.ReadFile(filepath)
 	if err != nil {
 		return nil, err
 	}
-	return netinfo.GetFromJsonBytes(d, encryptionKey)
+	return netinfo.FromBytes(d, encryptionKey)
 }
 
 func ReceiveRequest(filepath string, encryptionKey []byte, remoteInterface string, wgInterface string, wgPeerKey string) (err error) {

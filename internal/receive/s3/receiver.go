@@ -10,7 +10,7 @@ import (
 )
 
 // getNetInfo 从 s3 服务器获取指定 id 的网络信息
-func getNetInfo(endpoint string, region string, accessKeyId string, secretAccessKey string, stsToken string, pathStyle bool, allowInsecure bool, bucket string, objectPath string, encryptionKey []byte) (data *netinfo.Data, err error) {
+func getNetInfo(endpoint string, region string, accessKeyId string, secretAccessKey string, stsToken string, pathStyle bool, allowInsecure bool, bucket string, objectPath string, encryptionKey []byte) (data *netinfo.NetInfo, err error) {
 	s := gS3.NewS3Session(endpoint, region, accessKeyId, secretAccessKey, stsToken, pathStyle, allowInsecure)
 	response, err := s.GetObject(bucket, objectPath)
 	if err != nil {
@@ -22,7 +22,7 @@ func getNetInfo(endpoint string, region string, accessKeyId string, secretAccess
 	if err != nil {
 		return nil, err
 	}
-	return netinfo.GetFromJsonBytes(d, encryptionKey)
+	return netinfo.FromBytes(d, encryptionKey)
 }
 
 func ReceiveRequest(endpoint string, region string, accessKeyId string, secretAccessKey string, stsToken string, pathStyle bool, allowInsecure bool, bucket string, objectPath string, encryptionKey []byte, remoteInterface string, wgInterface string, wgPeerKey string) (err error) {

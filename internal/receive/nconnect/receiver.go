@@ -10,7 +10,7 @@ import (
 )
 
 // getNetInfo 从 nconnect 服务器获取指定 id 的网络信息
-func getNetInfo(id string, endpoint string, username string, password string, allowInsecure bool) (netInfoInMemoryData *netinfo.Data, err error) {
+func getNetInfo(id string, endpoint string, username string, password string, allowInsecure bool) (netInfoInMemoryData *netinfo.NetInfo, err error) {
 	client := req.C()
 
 	// 默认不启用跳过TLS证书检测

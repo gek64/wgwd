@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"time"
+	"wgwd/internal/decrypt"
 	"wgwd/internal/receive/file"
 	"wgwd/internal/receive/nconnect"
 	"wgwd/internal/receive/s3"
@@ -39,28 +40,33 @@ func main() {
 
 	cmds := []*cli.Command{
 		{
-			Name:  "get",
-			Usage: "get wireguard endpoint from network information",
+			Name:    "get",
+			Aliases: []string{"g"},
+			Usage:   "get wireguard endpoint from network information",
 			Flags: []cli.Flag{
 				&cli.StringFlag{
 					Name:        "remote_interface",
+					Aliases:     []string{"r"},
 					Usage:       "set remote interface",
 					Required:    true,
 					Destination: &remote_interface,
 				},
 				&cli.StringFlag{
 					Name:        "wg_interface",
+					Aliases:     []string{"wi"},
 					Usage:       "set wireguard interface",
 					Required:    true,
 					Destination: &wg_interface,
 				},
 				&cli.StringFlag{
 					Name:        "wg_peer_key",
+					Aliases:     []string{"wk"},
 					Usage:       "set wireguard peer key",
 					Destination: &wg_peer_key,
 				},
 				&cli.DurationFlag{
 					Name:        "interval",
+					Aliases:     []string{"i"},
 					Usage:       "set send interval",
 					Destination: &interval,
 				},
@@ -73,12 +79,14 @@ func main() {
 					Flags: []cli.Flag{
 						&cli.StringFlag{
 							Name:        "filepath",
+							Aliases:     []string{"f"},
 							Usage:       "set file path",
 							Required:    true,
 							Destination: &filepath,
 						},
 						&cli.StringFlag{
 							Name:        "encryption_key",
+							Aliases:     []string{"e"},
 							Usage:       "set file encryption key",
 							Destination: &encryption_key,
 						},
@@ -107,6 +115,7 @@ func main() {
 						},
 						&cli.StringFlag{
 							Name:        "encryption_key",
+							Aliases:     []string{"e"},
 							Usage:       "set file encryption key",
 							Destination: &encryption_key,
 						},
@@ -182,6 +191,7 @@ func main() {
 						},
 						&cli.StringFlag{
 							Name:        "encryption_key",
+							Aliases:     []string{"e"},
 							Usage:       "set file encryption key",
 							Destination: &encryption_key,
 						},
@@ -203,6 +213,7 @@ func main() {
 						},
 						&cli.StringFlag{
 							Name:        "filepath",
+							Aliases:     []string{"f"},
 							Usage:       "set webdav server filepath",
 							Required:    true,
 							Destination: &filepath,
@@ -255,6 +266,35 @@ func main() {
 						return nil
 					},
 				},
+			},
+		},
+		{
+			Name:    "decrypt",
+			Aliases: []string{"d"},
+			Usage:   "decrypt a file",
+			Flags: []cli.Flag{
+				&cli.StringFlag{
+					Name:        "filepath",
+					Aliases:     []string{"f"},
+					Usage:       "set file path",
+					Required:    true,
+					Destination: &filepath,
+				},
+				&cli.StringFlag{
+					Name:        "encryption_key",
+					Aliases:     []string{"e"},
+					Usage:       "set file encryption key",
+					Required:    true,
+					Destination: &encryption_key,
+				},
+			},
+			Action: func(ctx *cli.Context) error {
+				plaintext, err := decrypt.FromFile(filepath, []byte(encryption_key))
+				if err != nil {
+					return err
+				}
+				fmt.Println(string(plaintext))
+				return nil
 			},
 		},
 	}

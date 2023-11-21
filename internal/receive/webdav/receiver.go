@@ -10,7 +10,7 @@ import (
 )
 
 // getNetInfo 从 webdav 服务器获取指定 id 的网络信息
-func getNetInfo(endpoint string, username string, password string, allowInsecure bool, filepath string, encryptionKey []byte) (data *netinfo.Data, err error) {
+func getNetInfo(endpoint string, username string, password string, allowInsecure bool, filepath string, encryptionKey []byte) (data *netinfo.NetInfo, err error) {
 	client, err := gWebDAV.NewClient(endpoint, username, password, allowInsecure)
 	response, err := client.Download(filepath)
 	if err != nil {
@@ -22,7 +22,7 @@ func getNetInfo(endpoint string, username string, password string, allowInsecure
 	if err != nil {
 		return nil, err
 	}
-	return netinfo.GetFromJsonBytes(d, encryptionKey)
+	return netinfo.FromBytes(d, encryptionKey)
 }
 
 func ReceiveRequest(endpoint string, username string, password string, allowInsecure bool, filepath string, encryptionKey []byte, remoteInterface string, wgInterface string, wgPeerKey string) (err error) {

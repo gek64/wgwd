@@ -35,6 +35,9 @@ wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5s" webdav -e
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
 ## Loop Get local network information from nconnect server
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5s" nconnect -id="center" -endpoint="http://localhost:1996/"
+
+# Decrypt a encrypted file
+wgwd decrypt -filepath "./center.json" -encryption_key="admin123"
 ```
 
 ## Install
