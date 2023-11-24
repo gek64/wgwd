@@ -57,33 +57,33 @@ chmod +x /usr/local/bin/wgwd
 ### Linux(systemd)
 
 ```sh
-curl -Lo /etc/systemd/system/wgwd.service https://github.com/gek64/wgwd/raw/main/configs/wgwd.service
-systemctl enable wgwd && systemctl restart wgwd && systemctl status wgwd
+curl -Lo /etc/systemd/system/xxx.service https://github.com/gek64/wgwd/raw/main/configs/systemd/xxx.service
+systemctl enable xxx && systemctl restart xxx && systemctl status xxx
 ```
 
 ### Alpine Linux(openrc)
 
 ```sh
-curl -Lo /etc/init.d/wgwd https://github.com/gek64/wgwd/raw/main/configs/wgwd.openrc
-chmod +x /etc/init.d/wgwd
-rc-update add wgwd && rc-service wgwd restart && rc-service wgwd status
+curl -Lo /etc/init.d/xxx https://github.com/gek64/wgwd/raw/main/configs/openrc/xxx
+chmod +x /etc/init.d/xxx
+rc-update add xxx && rc-service xxx restart && rc-service xxx status
 ```
 
 ### FreeBSD(rc.d)
 
 ```sh
 mkdir /usr/local/etc/rc.d/
-curl -Lo /usr/local/etc/rc.d/wgwd https://github.com/gek64/wgwd/raw/main/configs/wgwd.rcd
-chmod +x /usr/local/etc/rc.d/wgwd
-service wgwd enable && service wgwd restart && service wgwd status
+curl -Lo /usr/local/etc/rc.d/xxx https://github.com/gek64/wgwd/raw/main/configs/rc.d/xxx
+chmod +x /usr/local/etc/rc.d/xxx
+service xxx enable && service xxx restart && service xxx status
 ```
 
 ### OpenWRT(init.d)
 
 ```sh
-curl -Lo /etc/init.d/wgwd https://github.com/gek64/wgwd/raw/main/configs/wgwd.initd
-chmod +x /etc/init.d/wgwd
-service wgwd enable && service wgwd restart && service wgwd status
+curl -Lo /etc/init.d/xxx https://github.com/gek64/wgwd/raw/main/configs/init.d/xxx
+chmod +x /etc/init.d/xxx
+service xxx enable && service xxx restart && service xxx status
 ```
 
 ## Compile

@@ -1,0 +1,20 @@
+[Unit]
+Description=WireGuard Watchdog S3 Receiver
+After=network.target network-online.target
+
+[Service]
+Environment="W_REMOTE_INTERFACE=xxx"
+Environment="W_WG_INTERFACE=xxx"
+Environment="W_ENDPOINT=https://xxx"
+Environment="W_ACCESS_KEY_ID=xxx"
+Environment="W_SECRET_ACCESS_KEY=xxx"
+Environment="W_BUCKET=xxx"
+Environment="W_OBJECT_PATH=xxx"
+Environment="W_ENCRYPTION_KEY=xxx"
+Type=oneshot
+User=root
+ExecStart=/usr/local/bin/wgwd get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} s3 -endpoint=${W_ENDPOINT} -path_style -access_key_id=${W_ACCESS_KEY_ID} -secret_access_key=${W_SECRET_ACCESS_KEY} -bucket=${W_BUCKET} -object_path=${W_OBJECT_PATH} -encryption_key=${W_ENCRYPTION_KEY}
+SyslogIdentifier=WireGuard Watchdog S3 Receiver
+
+[Install]
+WantedBy=multi-user.target

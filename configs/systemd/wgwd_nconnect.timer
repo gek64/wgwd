@@ -1,0 +1,11 @@
+[Unit]
+Description=WireGuard Watchdog Nconnect Receiver Timer
+
+[Timer]
+Unit=wgwd_nconnect.service
+OnBootSec=10s
+OnUnitActiveSec=5m
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

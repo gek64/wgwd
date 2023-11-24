@@ -1,0 +1,28 @@
+#!/bin/sh
+# PROVIDE: wgwd_webdav
+# REQUIRE: DAEMON NETWORKING
+
+. /etc/rc.subr
+name=wgwd_webdav
+rcvar=${name}_enable
+command="/usr/local/bin/wgwd"
+pidfile="/var/run/${name}.pid"
+start_cmd="${name}_start"
+
+# env
+W_REMOTE_INTERFACE="xxx"
+W_WG_INTERFACE="xxx"
+W_ENDPOINT="https://xxx"
+W_USERNAME="xxx"
+W_PASSWORD="xxx"
+W_FILEPATH="xxx"
+W_ENCRYPTION_KEY="xxx"
+N_INTERVAL="5m"
+
+wgwd_webdav_start() {
+  echo "Starting ${name}."
+  /usr/sbin/daemon -cf -p ${pidfile} ${command} get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} webdav -endpoint=${W_ENDPOINT} -username=${W_USERNAME} -password=${W_PASSWORD} -filepath=${W_FILEPATH} -encryption_key=${W_ENCRYPTION_KEY}
+}
+
+load_rc_config $name
+run_rc_command "$1"
