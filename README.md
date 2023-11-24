@@ -86,13 +86,6 @@ chmod +x /etc/init.d/wgwd
 service wgwd enable && service wgwd restart && service wgwd status
 ```
 
-### cron
-
-```sh
-echo '*/30 * * * * root (/usr/local/bin/wgwd get s3 -endpoint="http://192.168.1.185:9000")' > /etc/cron.d/wgwd
-service cron restart
-```
-
 ## Compile
 
 ```sh
