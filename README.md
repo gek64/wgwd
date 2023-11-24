@@ -22,19 +22,19 @@ wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="http://192
 ## Get local network information from minio s3 server and decrypt the file
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
 ## Get Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5s" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5m" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
 
 # Get local network information from webdav server
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
 ## Get local network information from webdav server and decrypt the file
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
 ## Loop Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5s" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5m" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
 
 # Get local network information from nconnect server
 wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
 ## Loop Get local network information from nconnect server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5s" nconnect -id="center" -endpoint="http://localhost:1996/"
+wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5m" nconnect -id="center" -endpoint="http://localhost:1996/"
 
 # Decrypt a encrypted file
 wgwd decrypt -filepath "./center.json" -encryption_key="admin123"
