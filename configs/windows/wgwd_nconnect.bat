@@ -9,7 +9,7 @@ cd /d %base%
 set W_REMOTE_INTERFACE="xxx"
 set W_WG_INTERFACE="xxx"
 set W_ID="xxx"
-set W_ENDPOINT="https://xxx"
+set W_ENDPOINT="xxx"
 set N_INTERVAL="5m"
 
 wgwd get -remote_interface=%W_REMOTE_INTERFACE% -wg_interface=%W_WG_INTERFACE% -interval=%N_INTERVAL% nconnect -id=%W_ID% -endpoint=%W_ENDPOINT% -allow_insecure
