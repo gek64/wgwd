@@ -1,0 +1,29 @@
+#!/bin/sh /etc/rc.common
+# https://openwrt.org/docs/guide-developer/procd-init-scripts
+
+USE_PROCD=1
+START=90
+COMMAND="/usr/bin/wgwd"
+W_REMOTE_INTERFACE="xxx"
+W_WG_INTERFACE="xxx"
+W_ENDPOINT="xxx"
+W_ACCESS_KEY_ID="xxx"
+W_SECRET_ACCESS_KEY="xxx"
+W_BUCKET="xxx"
+W_OBJECT_PATH="xxx"
+W_ENCRYPTION_KEY="xxx"
+N_INTERVAL="5m"
+
+boot() {
+  ubus -t 30 wait_for network.interface network.wireless 2>/dev/null
+  rc_procd start_service
+}
+
+start_service() {
+  procd_open_instance
+  procd_set_param command ${COMMAND} get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} s3 -endpoint=${W_ENDPOINT} -path_style -access_key_id=${W_ACCESS_KEY_ID} -secret_access_key=${W_SECRET_ACCESS_KEY} -bucket=${W_BUCKET} -object_path=${W_OBJECT_PATH} -encryption_key=${W_ENCRYPTION_KEY}
+  procd_set_param pidfile /var/run/wgwd_s3.pid
+  procd_set_param stdout 1
+  procd_set_param stderr 1
+  procd_close_instance
+}
