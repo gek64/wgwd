@@ -1,0 +1,23 @@
+#!/sbin/openrc-run
+# https://github.com/OpenRC/openrc/blob/master/service-script-guide.md
+# env
+export W_REMOTE_INTERFACE="xxx"
+export W_WG_INTERFACE="xxx"
+export W_ENDPOINT="xxx"
+export W_USERNAME="xxx"
+export W_PASSWORD="xxx"
+export W_FILEPATH="xxx"
+export W_ENCRYPTION_KEY="xxx"
+export N_INTERVAL="5m"
+
+command="/usr/local/bin/wgwd"
+command_args="get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} webdav -endpoint=${W_ENDPOINT} -username=${W_USERNAME} -password=${W_PASSWORD} -filepath=${W_FILEPATH} -encryption_key=${W_ENCRYPTION_KEY}"
+command_background=true
+command_user="root"
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+  need net
+  use dns logger netmount
+  after firewall wireguard
+}

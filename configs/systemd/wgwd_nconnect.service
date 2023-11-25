@@ -6,7 +6,7 @@ After=network.target network-online.target
 Environment="W_REMOTE_INTERFACE=xxx"
 Environment="W_WG_INTERFACE=xxx"
 Environment="W_ID=xxx"
-Environment="W_ENDPOINT=https://xxx"
+Environment="W_ENDPOINT=xxx"
 Type=oneshot
 User=root
 ExecStart=/usr/local/bin/wgwd get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} nconnect -id=${W_ID} -endpoint=${W_ENDPOINT} -allow_insecure

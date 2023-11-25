@@ -13,7 +13,7 @@ start_cmd="${name}_start"
 W_REMOTE_INTERFACE="xxx"
 W_WG_INTERFACE="xxx"
 W_ID="xxx"
-W_ENDPOINT="https://xxx"
+W_ENDPOINT="xxx"
 N_INTERVAL="5m"
 
 wgwd_nconnect_start() {

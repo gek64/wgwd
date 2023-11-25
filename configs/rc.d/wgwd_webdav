@@ -12,7 +12,7 @@ start_cmd="${name}_start"
 # env
 W_REMOTE_INTERFACE="xxx"
 W_WG_INTERFACE="xxx"
-W_ENDPOINT="https://xxx"
+W_ENDPOINT="xxx"
 W_USERNAME="xxx"
 W_PASSWORD="xxx"
 W_FILEPATH="xxx"

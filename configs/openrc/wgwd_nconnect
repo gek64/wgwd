@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+# https://github.com/OpenRC/openrc/blob/master/service-script-guide.md
+# env
+export W_REMOTE_INTERFACE="xxx"
+export W_WG_INTERFACE="xxx"
+export W_ID="xxx"
+export W_ENDPOINT="xxx"
+export N_INTERVAL="5m"
+
+command="/usr/local/bin/wgwd"
+command_args="get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} nconnect -id=${W_ID} -endpoint=${W_ENDPOINT} -allow_insecure"
+command_background=true
+command_user="root"
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+  need net
+  use dns logger netmount
+  after firewall wireguard
+}

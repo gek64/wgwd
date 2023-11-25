@@ -5,7 +5,7 @@ After=network.target network-online.target
 [Service]
 Environment="W_REMOTE_INTERFACE=xxx"
 Environment="W_WG_INTERFACE=xxx"
-Environment="W_ENDPOINT=https://xxx"
+Environment="W_ENDPOINT=xxx"
 Environment="W_USERNAME=xxx"
 Environment="W_PASSWORD=xxx"
 Environment="W_FILEPATH=xxx"

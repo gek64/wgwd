@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+command="/usr/bin/wg-quick"
+command_args="up wg0"
+command_user="root"
+depend() {
+  need net
+  use dns logger netmount
+  after firewall
+}
+stop() {
+  ${command} down wg0
+}
