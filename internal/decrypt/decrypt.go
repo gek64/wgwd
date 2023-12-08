@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const AssociatedDataSize = 8
+const AssociatedDataSize = 16
 
 // FromBytes 从比特切片解密
 func FromBytes(ciphertext []byte, key []byte, associatedDataSize uint) (plaintext []byte, err error) {
