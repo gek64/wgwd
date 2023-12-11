@@ -90,6 +90,8 @@ service xxx enable && service xxx restart && service xxx status
 
 ## Compile
 
+### How to compile if prebuilt binaries are not found
+
 ```sh
 git clone https://github.com/gek64/wgwd.git
 cd wgwd
@@ -97,7 +99,7 @@ export CGO_ENABLED=0
 go build -v -trimpath -ldflags "-s -w"
 ```
 
-## For mipsle router
+### For mipsle router
 
 ```sh
 git clone https://github.com/gek64/wgwd.git
