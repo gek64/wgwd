@@ -93,15 +93,20 @@ service xxx enable && service xxx restart && service xxx status
 ```sh
 git clone https://github.com/gek64/wgwd.git
 cd wgwd
+export CGO_ENABLED=0
 go build -v -trimpath -ldflags "-s -w"
 ```
 
-## For openwrt on mipsle router
+## For mipsle router
 
 ```sh
 git clone https://github.com/gek64/wgwd.git
 cd wgwd
-GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -v -trimpath -ldflags "-s -w"
+export GOOS=linux
+export GOARCH=mipsle
+export GOMIPS=softfloat
+export CGO_ENABLED=0
+go build -v -trimpath -ldflags "-s -w"
 ```
 
 ## License
