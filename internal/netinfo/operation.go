@@ -25,7 +25,7 @@ func (r *NetInfo) GetPublicIP(interfaceName string) (ip string, err error) {
 // FromBytes 从加密的比特切片中获取 *NetInfo
 func FromBytes(ciphertext []byte, encryptionKey []byte) (netInfo *NetInfo, err error) {
 	// 解密, encryptionKey 长度为 0 的情况, 会直接返回输入的密文
-	plaintext, err := decrypt.FromBytes(ciphertext, encryptionKey, decrypt.AssociatedDataSize)
+	plaintext, err := decrypt.FromBytes(ciphertext, encryptionKey)
 	if err != nil {
 		return nil, err
 	}

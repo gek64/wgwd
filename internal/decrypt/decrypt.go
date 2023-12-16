@@ -1,23 +1,23 @@
 package decrypt
 
 import (
+	"crypto/sha256"
 	"github.com/gek64/gek/gCrypto"
+	"github.com/gek64/gek/gCrypto/padding"
 	"golang.org/x/crypto/chacha20poly1305"
 	"os"
 )
 
-const AssociatedDataSize = 16
-
 // FromBytes 从比特切片解密
-func FromBytes(ciphertext []byte, key []byte, associatedDataSize uint) (plaintext []byte, err error) {
+func FromBytes(ciphertext []byte, key []byte) (plaintext []byte, err error) {
 	// 通过密钥长度判断是否使用解密
 	switch len(key) {
 	case 0:
 		return ciphertext, nil
 	default:
-		key = gCrypto.KeyZeroPadding(key, chacha20poly1305.KeySize)
-		key = gCrypto.KeyCropping(key, chacha20poly1305.KeySize)
-		return gCrypto.NewChaCha20Poly1305(key, associatedDataSize).Decrypt(ciphertext)
+		key = padding.ZeroPadding(key, chacha20poly1305.KeySize)
+		key = key[0:chacha20poly1305.KeySize]
+		return gCrypto.NewChaCha20Poly1305WithHashAD(key, sha256.New()).Decrypt(ciphertext)
 	}
 }
 
@@ -27,5 +27,5 @@ func FromFile(filepath string, encryptionKey []byte) (plaintext []byte, err erro
 	if err != nil {
 		return nil, err
 	}
-	return FromBytes(d, encryptionKey, AssociatedDataSize)
+	return FromBytes(d, encryptionKey)
 }

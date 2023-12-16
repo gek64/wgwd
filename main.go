@@ -306,7 +306,7 @@ func main() {
 
 	app := &cli.App{
 		Usage:    "WireGuard Watchdog",
-		Version:  "v1.20",
+		Version:  "v1.21",
 		Commands: cmds,
 	}
 
