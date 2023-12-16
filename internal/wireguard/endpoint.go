@@ -1,7 +1,6 @@
 package wireguard
 
 import (
-	"encoding/hex"
 	"fmt"
 	"github.com/gek64/gek/gExec"
 	"net/netip"
@@ -106,12 +105,12 @@ func GetEndpointConfigByKey(wgInterface string, peerKey string) (endpointConfig 
 
 // GetEndpointConfigs 获取 endpointConfigs
 func GetEndpointConfigs(wgInterface string) (endpointConfigs []*EndpointConfig, err error) {
-	endpointsString, err := gExec.Output(exec.Command("wg", "show", wgInterface, "endpoints"))
+	e, err := exec.Command("wg", "show", wgInterface, "endpoints").Output()
 	if err != nil {
 		return nil, err
 	}
 
-	endpointArray := strings.Split(hex.EncodeToString(endpointsString), "\n")
+	endpointArray := strings.Split(string(e), "\n")
 
 	for _, endpoint := range endpointArray {
 		e := strings.Split(endpoint, "\u0009")
