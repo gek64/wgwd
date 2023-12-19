@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>wgwd.s3</string>
+        <key>EnvironmentVariables</key>
+        <dict>
+            <key>W_REMOTE_INTERFACE</key>
+            <string>xxx</string>
+            <key>W_WG_INTERFACE</key>
+            <string>xxx</string>
+            <key>W_ENDPOINT</key>
+            <string>xxx</string>
+            <key>W_ACCESS_KEY_ID</key>
+            <string>xxx</string>
+            <key>W_SECRET_ACCESS_KEY</key>
+            <string>xxx</string>
+            <key>W_BUCKET</key>
+            <string>xxx</string>
+            <key>W_OBJECT_PATH</key>
+            <string>xxx</string>
+            <key>W_ENCRYPTION_KEY</key>
+        </dict>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>WorkingDirectory</key>
+        <string>/usr/local</string>
+        <key>StartInterval</key>
+        <integer>300</integer>
+        <key>ProgramArguments</key>
+        <array>
+            <string>bash</string>
+            <string>-c</string>
+            <string>/usr/local/bin/wgwd get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} s3 -endpoint=${W_ENDPOINT} -path_style -access_key_id=${W_ACCESS_KEY_ID} -secret_access_key=${W_SECRET_ACCESS_KEY} -bucket=${W_BUCKET} -object_path=${W_OBJECT_PATH} -encryption_key=${W_ENCRYPTION_KEY}</string>
+        </array>
+        <key>UserName</key>
+        <string>root</string>
+        <key>GroupName</key>
+        <string>wheel</string>
+        <key>StandardErrorPath</key>
+        <string>/var/log/wgwd.s3.err</string>
+        <key>StandardOutPath</key>
+        <string>/var/log/wgwd.s3.out</string>
+    </dict>
+</plist>

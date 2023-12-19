@@ -1,24 +1,24 @@
 name: Go Build and Release and Clean
 
 on:
-  push:
-    branches:
-      - main
-      - master
-    paths-ignore:
-      - 'docs/**'
-      - '.github/**'
-      - '**.md'
-      - 'LICENSE'
-  pull_request:
-    branches:
-      - main
-      - master
-    paths-ignore:
-      - 'docs/**'
-      - '.github/**'
-      - '**.md'
-      - 'LICENSE'
+  # push:
+  #   branches:
+  #     - main
+  #     - master
+  #   paths-ignore:
+  #     - 'docs/**'
+  #     - '.github/**'
+  #     - '**.md'
+  #     - 'LICENSE'
+  # pull_request:
+  #   branches:
+  #     - main
+  #     - master
+  #   paths-ignore:
+  #     - 'docs/**'
+  #     - '.github/**'
+  #     - '**.md'
+  #     - 'LICENSE'
   workflow_dispatch:
     inputs:
       tag:
