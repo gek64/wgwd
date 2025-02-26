@@ -57,35 +57,39 @@ chmod +x /usr/local/bin/wgwd
 ### Linux(systemd)
 
 ```sh
-curl -Lo /etc/systemd/system/xxx.service https://github.com/gek64/wgwd/raw/main/configs/systemd/xxx.service
-systemctl enable xxx.service && systemctl restart xxx.service && systemctl status xxx.service
-curl -Lo /etc/systemd/system/xxx.timer https://github.com/gek64/wgwd/raw/main/configs/systemd/xxx.timer
-systemctl enable xxx.timer && systemctl restart xxx.timer && systemctl status xxx.timer
+ServiceName=wgwd_webdav
+curl -Lo "/etc/systemd/system/$ServiceName.service" "https://github.com/gek64/wgwd/raw/main/configs/systemd/$ServiceName.service"
+systemctl enable $ServiceName.service && systemctl restart $ServiceName.service && systemctl status $ServiceName.service
+curl -Lo "/etc/systemd/system/$ServiceName.timer" "https://github.com/gek64/wgwd/raw/main/configs/systemd/$ServiceName.timer"
+systemctl enable $ServiceName.timer && systemctl restart $ServiceName.timer && systemctl status $ServiceName.timer
 ```
 
 ### Alpine Linux(openrc)
 
 ```sh
-curl -Lo /etc/init.d/xxx https://github.com/gek64/wgwd/raw/main/configs/openrc/xxx
-chmod +x /etc/init.d/xxx
-rc-update add xxx && rc-service xxx restart && rc-service xxx status
+ServiceName=wgwd_webdav
+curl -Lo "/etc/init.d/$ServiceName" "https://github.com/gek64/wgwd/raw/main/configs/openrc/$ServiceName"
+chmod +x /etc/init.d/$ServiceName
+rc-update add $ServiceName && rc-service $ServiceName restart && rc-service $ServiceName status
 ```
 
 ### FreeBSD(rc.d)
 
 ```sh
+setenv ServiceName wgwd_webdav
 mkdir /usr/local/etc/rc.d/
-curl -Lo /usr/local/etc/rc.d/xxx https://github.com/gek64/wgwd/raw/main/configs/rc.d/xxx
-chmod +x /usr/local/etc/rc.d/xxx
-service xxx enable && service xxx restart && service xxx status
+curl -Lo "/usr/local/etc/rc.d/$ServiceName" "https://github.com/gek64/wgwd/raw/main/configs/rc.d/$ServiceName"
+chmod +x /usr/local/etc/rc.d/$ServiceName
+service $ServiceName enable && service $ServiceName restart && service $ServiceName status
 ```
 
 ### OpenWRT(init.d)
 
 ```sh
-curl -Lo /etc/init.d/xxx https://github.com/gek64/wgwd/raw/main/configs/init.d/xxx
-chmod +x /etc/init.d/xxx
-service xxx enable && service xxx restart && service xxx status
+ServiceName=wgwd_webdav
+curl -Lo "/etc/init.d/$ServiceName" "https://github.com/gek64/wgwd/raw/main/configs/init.d/$ServiceName"
+chmod +x /etc/init.d/$ServiceName
+service $ServiceName enable && service $ServiceName restart && service $ServiceName status
 ```
 
 ## Compile
