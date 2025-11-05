@@ -1,8 +1,8 @@
 [Unit]
-Description=WireGuard Watchdog Webdav Receiver Timer
+Description=WireGuard Watchdog Receiver Timer
 
 [Timer]
-Unit=wgwd_webdav.service
+Unit=wgwd.service
 OnBootSec=10s
 OnUnitActiveSec=5m
 Persistent=true

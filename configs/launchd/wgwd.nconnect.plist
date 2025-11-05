@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>Label</key>
-        <string>wgwd.nconnect</string>
+        <string>wgwd</string>
         <key>EnvironmentVariables</key>
         <dict>
             <key>W_REMOTE_INTERFACE</key>
@@ -32,8 +32,8 @@
         <key>GroupName</key>
         <string>wheel</string>
         <key>StandardErrorPath</key>
-        <string>/var/log/wgwd.nconnect.err</string>
+        <string>/var/log/wgwd.err</string>
         <key>StandardOutPath</key>
-        <string>/var/log/wgwd.nconnect.out</string>
+        <string>/var/log/wgwd.out</string>
     </dict>
 </plist>

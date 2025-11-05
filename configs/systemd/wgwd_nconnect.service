@@ -10,7 +10,6 @@ Environment="W_ENDPOINT=xxx"
 Type=oneshot
 User=root
 ExecStart=/usr/local/bin/wgwd get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} nconnect -id=${W_ID} -endpoint=${W_ENDPOINT} -allow_insecure
-SyslogIdentifier=WireGuard Watchdog Nconnect Receiver
 
 [Install]
 WantedBy=multi-user.target

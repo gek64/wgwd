@@ -1,25 +1,25 @@
 #!/bin/sh /etc/rc.common
-# https://openwrt.org/docs/guide-developer/procd-init-scripts
 
-USE_PROCD=1
 START=90
-COMMAND="/usr/bin/wgwd"
+STOP=01
+USE_PROCD=1
+
 W_REMOTE_INTERFACE="xxx"
 W_WG_INTERFACE="xxx"
 W_ID="xxx"
 W_ENDPOINT="xxx"
 N_INTERVAL="5m"
 
-boot() {
-  ubus -t 30 wait_for network.interface network.wireless 2>/dev/null
-  rc_procd start_service
+service_data() {
+    echo "wgwd is starting up..."
 }
 
 start_service() {
-  procd_open_instance
-  procd_set_param command ${COMMAND} get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} nconnect -id=${W_ID} -endpoint=${W_ENDPOINT} -allow_insecure
-  procd_set_param pidfile /var/run/wgwd_nconnect.pid
-  procd_set_param stdout 1
-  procd_set_param stderr 1
-  procd_close_instance
+    procd_open_instance
+    procd_set_param command /usr/local/bin/wgwd
+    procd_append_param command get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} nconnect -id=${W_ID} -endpoint=${W_ENDPOINT} -allow_insecure
+    procd_set_param pidfile /var/run/wgwd.pid
+    procd_set_param stdout 1
+    procd_set_param stderr 1
+    procd_close_instance
 }

@@ -13,7 +13,6 @@ Environment="W_ENCRYPTION_KEY=xxx"
 Type=oneshot
 User=root
 ExecStart=/usr/local/bin/wgwd get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} webdav -endpoint=${W_ENDPOINT} -username=${W_USERNAME} -password=${W_PASSWORD} -filepath=${W_FILEPATH} -encryption_key=${W_ENCRYPTION_KEY}
-SyslogIdentifier=WireGuard Watchdog Webdav Receiver
 
 [Install]
 WantedBy=multi-user.target

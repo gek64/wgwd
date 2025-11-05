@@ -9,32 +9,32 @@
 
 ```sh
 # Get local network information from a file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -filepath="./center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" file -filepath="./center.json"
 ## Get local network information from a file and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" file -filepath="./center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" file -filepath="./center.json" -encryption_key="admin123"
 ## Loop get local network information from a file and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5m" file -filepath="./center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" file -filepath="./center.json" -encryption_key="admin123"
 
 # Get local network information from s3 server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="https://s3.amazonaws.com" -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="https://s3.amazonaws.com" -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
 ## Get local network information from minio s3 server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
 ## Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
 ## Get Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5m" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
 
 # Get local network information from webdav server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
 ## Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
 ## Loop Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5m" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
 
 # Get local network information from nconnect server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
 ## Loop Get local network information from nconnect server
-wgwd get -remote_interface="pppoe0" -wg_interface="wg0" -interval="5m" nconnect -id="center" -endpoint="http://localhost:1996/"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" nconnect -id="center" -endpoint="http://localhost:1996/"
 
 # Decrypt a encrypted file
 wgwd decrypt -filepath "./center.json" -encryption_key="admin123"
@@ -52,44 +52,40 @@ curl -Lo /usr/local/bin/wgwd https://github.com/gek64/wgwd/releases/latest/downl
 chmod +x /usr/local/bin/wgwd
 ```
 
-## Install Service
+## Install Service(WebDAV usage examples)
 
 ### Linux(systemd)
 
 ```sh
-ServiceName=wgwd_webdav
-curl -Lo "/etc/systemd/system/$ServiceName.service" "https://github.com/gek64/wgwd/raw/main/configs/systemd/$ServiceName.service"
-systemctl enable $ServiceName.service && systemctl restart $ServiceName.service && systemctl status $ServiceName.service
-curl -Lo "/etc/systemd/system/$ServiceName.timer" "https://github.com/gek64/wgwd/raw/main/configs/systemd/$ServiceName.timer"
-systemctl enable $ServiceName.timer && systemctl restart $ServiceName.timer && systemctl status $ServiceName.timer
+curl -Lo "/etc/systemd/system/wgwd.service" "https://github.com/gek64/wgwd/raw/main/configs/systemd/wgwd_webdav.service"
+systemctl enable wgwd.service && systemctl restart wgwd.service && systemctl status wgwd.service
+curl -Lo "/etc/systemd/system/wgwd.timer" "https://github.com/gek64/wgwd/raw/main/configs/systemd/wgwd.timer"
+systemctl enable wgwd.timer && systemctl restart wgwd.timer && systemctl status wgwd.timer
 ```
 
 ### Alpine Linux(openrc)
 
 ```sh
-ServiceName=wgwd_webdav
-curl -Lo "/etc/init.d/$ServiceName" "https://github.com/gek64/wgwd/raw/main/configs/openrc/$ServiceName"
-chmod +x /etc/init.d/$ServiceName
-rc-update add $ServiceName && rc-service $ServiceName restart && rc-service $ServiceName status
+curl -Lo "/etc/init.d/wgwd" "https://github.com/gek64/wgwd/raw/main/configs/openrc/wgwd_webdav"
+chmod +x /etc/init.d/wgwd
+rc-update add wgwd && rc-service wgwd restart && rc-service wgwd status
 ```
 
 ### FreeBSD(rc.d)
 
 ```sh
-setenv ServiceName wgwd_webdav
 mkdir /usr/local/etc/rc.d/
-curl -Lo "/usr/local/etc/rc.d/$ServiceName" "https://github.com/gek64/wgwd/raw/main/configs/rc.d/$ServiceName"
-chmod +x /usr/local/etc/rc.d/$ServiceName
-service $ServiceName enable && service $ServiceName restart && service $ServiceName status
+curl -Lo "/usr/local/etc/rc.d/wgwd" "https://github.com/gek64/wgwd/raw/main/configs/rc.d/wgwd_webdav"
+chmod +x /usr/local/etc/rc.d/wgwd
+service wgwd enable && service wgwd restart && service wgwd status
 ```
 
 ### OpenWRT(init.d)
 
 ```sh
-ServiceName=wgwd_webdav
-curl -Lo "/etc/init.d/$ServiceName" "https://github.com/gek64/wgwd/raw/main/configs/init.d/$ServiceName"
-chmod +x /etc/init.d/$ServiceName
-service $ServiceName enable && service $ServiceName restart && service $ServiceName status
+curl -Lo "/etc/init.d/wgwd" "https://github.com/gek64/wgwd/raw/main/configs/init.d/wgwd_webdav"
+chmod +x /etc/init.d/wgwd
+service wgwd enable && service wgwd restart && service wgwd status
 ```
 
 ## Compile
