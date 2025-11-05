@@ -19,7 +19,7 @@ W_FILEPATH="xxx"
 W_ENCRYPTION_KEY="xxx"
 N_INTERVAL="5m"
 
-wgwd_webdav_start() {
+wgwd_start() {
   echo "Starting ${name}."
   /usr/sbin/daemon -cf -p ${pidfile} ${command} get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} webdav -endpoint=${W_ENDPOINT} -username=${W_USERNAME} -password=${W_PASSWORD} -filepath=${W_FILEPATH} -encryption_key=${W_ENCRYPTION_KEY}
 }

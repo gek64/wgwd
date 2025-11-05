@@ -16,7 +16,7 @@ W_ID="xxx"
 W_ENDPOINT="xxx"
 N_INTERVAL="5m"
 
-wgwd_nconnect_start() {
+wgwd_start() {
   echo "Starting ${name}."
   /usr/sbin/daemon -cf -p ${pidfile} ${command} get -remote_interface=${W_REMOTE_INTERFACE} -wg_interface=${W_WG_INTERFACE} -interval=${N_INTERVAL} nconnect -id=${W_ID} -endpoint=${W_ENDPOINT} -allow_insecure
 }
