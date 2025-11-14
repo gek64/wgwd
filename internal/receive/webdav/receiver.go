@@ -1,12 +1,13 @@
 package webdav
 
 import (
-	"github.com/gek64/gek/gWebDAV"
 	"io"
 	"log"
 	"time"
 	"wgwd/internal/netinfo"
 	"wgwd/internal/wireguard"
+
+	"github.com/gek64/gek/gWebDAV"
 )
 
 // getNetInfo 从 webdav 服务器获取指定 id 的网络信息

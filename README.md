@@ -9,35 +9,30 @@
 
 ```sh
 # Get local network information from a file
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" file -filepath="./center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" file -filepath="./home.json"
 ## Get local network information from a file and decrypt the file
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" file -filepath="./center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" file -filepath="./home.json" -encryption_key="admin123"
 ## Loop get local network information from a file and decrypt the file
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" file -filepath="./center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" file -filepath="./home.json" -encryption_key="admin123"
 
 # Get local network information from s3 server
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="https://s3.amazonaws.com" -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="https://s3.amazonaws.com" -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="home.json"
 ## Get local network information from minio s3 server
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="home.json"
 ## Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="home.json" -encryption_key="admin123"
 ## Get Get local network information from minio s3 server and decrypt the file
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" s3 -endpoint="http://192.168.1.185:9000" -path_style -access_key_id="admin" -secret_access_key="adminadmin" -bucket="storage" -object_path="home.json" -encryption_key="admin123"
 
 # Get local network information from webdav server
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/home.json"
 ## Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/home.json" -encryption_key="admin123"
 ## Loop Get local network information from webdav server and decrypt the file
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/center.json" -encryption_key="admin123"
-
-# Get local network information from nconnect server
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" nconnect -id="center" -endpoint="http://localhost:1996/"
-## Loop Get local network information from nconnect server
-wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" nconnect -id="center" -endpoint="http://localhost:1996/"
+wgwd get -remote_interface="pppoe-wan" -wg_interface="wg0" -interval="5m" webdav -endpoint="http://192.168.1.2/" -filepath="/dav/home.json" -encryption_key="admin123"
 
 # Decrypt a encrypted file
-wgwd decrypt -filepath "./center.json" -encryption_key="admin123"
+wgwd decrypt -filepath "./home.json" -encryption_key="admin123"
 ```
 
 ## Install

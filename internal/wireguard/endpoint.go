@@ -2,10 +2,11 @@ package wireguard
 
 import (
 	"fmt"
-	"github.com/gek64/gek/gExec"
 	"net/netip"
 	"os/exec"
 	"strings"
+
+	"github.com/gek64/gek/gExec"
 )
 
 type EndpointConfig struct {

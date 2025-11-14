@@ -1,11 +1,12 @@
 package s3
 
 import (
-	"github.com/gek64/gek/gS3"
 	"log"
 	"time"
 	"wgwd/internal/netinfo"
 	"wgwd/internal/wireguard"
+
+	"github.com/gek64/gek/gS3"
 )
 
 // getNetInfo 从 s3 服务器获取指定 id 的网络信息

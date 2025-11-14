@@ -2,10 +2,11 @@ package decrypt
 
 import (
 	"crypto/sha256"
+	"os"
+
 	"github.com/gek64/gek/gCrypto"
 	"github.com/gek64/gek/gCrypto/padding"
 	"golang.org/x/crypto/chacha20poly1305"
-	"os"
 )
 
 // FromBytes 从比特切片解密

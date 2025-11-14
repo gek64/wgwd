@@ -3,8 +3,9 @@ package netinfo
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gek64/gek/gNet"
 	"wgwd/internal/decrypt"
+
+	"github.com/gek64/gek/gNet"
 )
 
 // GetPublicIP 从网络信息中获取公共 IP
