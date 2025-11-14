@@ -7,7 +7,6 @@ import (
 
 type NetInfo struct {
 	UpdatedAt     time.Time      `json:"updatedAt,omitempty" xml:"updatedAt,omitempty" form:"updatedAt,omitempty"`
-	RequestIP     netip.Addr     `json:"requestIP,omitempty" xml:"requestIP,omitempty" form:"requestIP,omitempty"`
 	NetInterfaces []NetInterface `json:"netInterfaces" xml:"netInterfaces" form:"netInterfaces" binding:"required"`
 }
 
