@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"wgwd/internal/decrypt"
 
-	"github.com/gek64/gek/gNet"
+	"github.com/unix755/xtools/xNet"
 )
 
 // GetPublicIP 从网络信息中获取公共 IP
@@ -13,7 +13,7 @@ func (r *NetInfo) GetPublicIP(interfaceName string) (ip string, err error) {
 	for _, netInterface := range r.NetInterfaces {
 		if netInterface.Name == interfaceName {
 			for _, ip := range netInterface.IPs {
-				isPublic, _ := gNet.IsPublic(ip.String())
+				isPublic, _ := xNet.IsPublic(ip.String())
 				if isPublic {
 					return ip.String(), nil
 				}

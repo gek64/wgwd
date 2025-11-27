@@ -39,11 +39,11 @@ wgwd decrypt -filepath "./home.json" -encryption_key="admin123"
 
 ```sh
 # system is linux(debian,redhat linux,ubuntu,fedora...) and arch is amd64
-curl -Lo /usr/local/bin/wgwd https://github.com/gek64/wgwd/releases/latest/download/wgwd-linux-amd64
+curl -Lo /usr/local/bin/wgwd https://github.com/unix755/wgwd/releases/latest/download/wgwd-linux-amd64
 chmod +x /usr/local/bin/wgwd
 
 # system is freebsd and arch is amd64
-curl -Lo /usr/local/bin/wgwd https://github.com/gek64/wgwd/releases/latest/download/wgwd-freebsd-amd64
+curl -Lo /usr/local/bin/wgwd https://github.com/unix755/wgwd/releases/latest/download/wgwd-freebsd-amd64
 chmod +x /usr/local/bin/wgwd
 ```
 
@@ -52,16 +52,16 @@ chmod +x /usr/local/bin/wgwd
 ### Linux(systemd)
 
 ```sh
-curl -Lo "/etc/systemd/system/wgwd.service" "https://github.com/gek64/wgwd/raw/main/configs/systemd/wgwd_webdav.service"
+curl -Lo "/etc/systemd/system/wgwd.service" "https://github.com/unix755/wgwd/raw/main/configs/systemd/wgwd_webdav.service"
 systemctl enable wgwd.service && systemctl restart wgwd.service && systemctl status wgwd.service
-curl -Lo "/etc/systemd/system/wgwd.timer" "https://github.com/gek64/wgwd/raw/main/configs/systemd/wgwd.timer"
+curl -Lo "/etc/systemd/system/wgwd.timer" "https://github.com/unix755/wgwd/raw/main/configs/systemd/wgwd.timer"
 systemctl enable wgwd.timer && systemctl restart wgwd.timer && systemctl status wgwd.timer
 ```
 
 ### Alpine Linux(openrc)
 
 ```sh
-curl -Lo "/etc/init.d/wgwd" "https://github.com/gek64/wgwd/raw/main/configs/openrc/wgwd_webdav"
+curl -Lo "/etc/init.d/wgwd" "https://github.com/unix755/wgwd/raw/main/configs/openrc/wgwd_webdav"
 chmod +x /etc/init.d/wgwd
 rc-update add wgwd && rc-service wgwd restart && rc-service wgwd status
 ```
@@ -70,7 +70,7 @@ rc-update add wgwd && rc-service wgwd restart && rc-service wgwd status
 
 ```sh
 mkdir /usr/local/etc/rc.d/
-curl -Lo "/usr/local/etc/rc.d/wgwd" "https://github.com/gek64/wgwd/raw/main/configs/rc.d/wgwd_webdav"
+curl -Lo "/usr/local/etc/rc.d/wgwd" "https://github.com/unix755/wgwd/raw/main/configs/rc.d/wgwd_webdav"
 chmod +x /usr/local/etc/rc.d/wgwd
 service wgwd enable && service wgwd restart && service wgwd status
 ```
@@ -78,7 +78,7 @@ service wgwd enable && service wgwd restart && service wgwd status
 ### OpenWRT(init.d)
 
 ```sh
-curl -Lo "/etc/init.d/wgwd" "https://github.com/gek64/wgwd/raw/main/configs/init.d/wgwd_webdav"
+curl -Lo "/etc/init.d/wgwd" "https://github.com/unix755/wgwd/raw/main/configs/init.d/wgwd_webdav"
 chmod +x /etc/init.d/wgwd
 service wgwd enable && service wgwd restart && service wgwd status
 ```
@@ -88,7 +88,7 @@ service wgwd enable && service wgwd restart && service wgwd status
 ### How to compile if prebuilt binaries are not found
 
 ```sh
-git clone https://github.com/gek64/wgwd.git
+git clone https://github.com/unix755/wgwd.git
 cd wgwd
 export CGO_ENABLED=0
 go build -v -trimpath -ldflags "-s -w"
@@ -97,7 +97,7 @@ go build -v -trimpath -ldflags "-s -w"
 ### For mipsle router
 
 ```sh
-git clone https://github.com/gek64/wgwd.git
+git clone https://github.com/unix755/wgwd.git
 cd wgwd
 export GOOS=linux
 export GOARCH=mipsle

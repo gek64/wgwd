@@ -7,12 +7,12 @@ import (
 	"wgwd/internal/netinfo"
 	"wgwd/internal/wireguard"
 
-	"github.com/gek64/gek/gWebDAV"
+	"github.com/unix755/xtools/xWebDAV"
 )
 
 // getNetInfo 从 webdav 服务器获取指定 id 的网络信息
 func getNetInfo(endpoint string, username string, password string, allowInsecure bool, filepath string, encryptionKey []byte) (data *netinfo.NetInfo, err error) {
-	client, err := gWebDAV.NewClient(endpoint, username, password, allowInsecure)
+	client, err := xWebDAV.NewClient(endpoint, username, password, allowInsecure)
 	response, err := client.Download(filepath)
 	if err != nil {
 		return nil, err

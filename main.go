@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -10,7 +11,7 @@ import (
 	"wgwd/internal/receive/s3"
 	"wgwd/internal/receive/webdav"
 
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 func main() {
@@ -71,7 +72,7 @@ func main() {
 				},
 			},
 
-			Subcommands: []*cli.Command{
+			Commands: []*cli.Command{
 				{
 					Name:  "file",
 					Usage: "get network information from filesystem",
@@ -90,7 +91,7 @@ func main() {
 							Destination: &encryptionKey,
 						},
 					},
-					Action: func(ctx *cli.Context) error {
+					Action: func(ctx context.Context, cmd *cli.Command) (err error) {
 						if interval != 0 {
 							file.ReceiveRequestLoop(filepath, []byte(encryptionKey), remoteInterface, wgInterface, wgPeerKey, interval)
 						} else {
@@ -166,11 +167,11 @@ func main() {
 							Destination: &objectPath,
 						},
 					},
-					Action: func(ctx *cli.Context) error {
+					Action: func(ctx context.Context, cmd *cli.Command) (err error) {
 						if interval != 0 {
 							s3.ReceiveRequestLoop(endpoint, regin, username, password, stsToken, pathStyle, allowInsecure, bucket, objectPath, []byte(encryptionKey), remoteInterface, wgInterface, wgPeerKey, interval)
 						} else {
-							err := s3.ReceiveRequest(endpoint, regin, username, password, stsToken, pathStyle, allowInsecure, bucket, objectPath, []byte(encryptionKey), remoteInterface, wgInterface, wgPeerKey)
+							err = s3.ReceiveRequest(endpoint, regin, username, password, stsToken, pathStyle, allowInsecure, bucket, objectPath, []byte(encryptionKey), remoteInterface, wgInterface, wgPeerKey)
 							if err != nil {
 								return err
 							}
@@ -218,11 +219,11 @@ func main() {
 							Destination: &filepath,
 						},
 					},
-					Action: func(ctx *cli.Context) error {
+					Action: func(ctx context.Context, cmd *cli.Command) (err error) {
 						if interval != 0 {
 							webdav.ReceiveRequestLoop(endpoint, username, password, allowInsecure, filepath, []byte(encryptionKey), remoteInterface, wgInterface, wgPeerKey, interval)
 						} else {
-							err := webdav.ReceiveRequest(endpoint, username, password, allowInsecure, filepath, []byte(encryptionKey), remoteInterface, wgInterface, wgPeerKey)
+							err = webdav.ReceiveRequest(endpoint, username, password, allowInsecure, filepath, []byte(encryptionKey), remoteInterface, wgInterface, wgPeerKey)
 							if err != nil {
 								return err
 							}
@@ -252,7 +253,7 @@ func main() {
 					Destination: &encryptionKey,
 				},
 			},
-			Action: func(ctx *cli.Context) error {
+			Action: func(ctx context.Context, cmd *cli.Command) (err error) {
 				plaintext, err := decrypt.FromFile(filepath, []byte(encryptionKey))
 				if err != nil {
 					return err
@@ -264,17 +265,17 @@ func main() {
 	}
 
 	// 打印版本函数
-	cli.VersionPrinter = func(cCtx *cli.Context) {
-		fmt.Printf("%s", cCtx.App.Version)
+	cli.VersionPrinter = func(cmd *cli.Command) {
+		fmt.Printf("%s\n", cmd.Root().Version)
 	}
 
-	app := &cli.App{
+	cmd := &cli.Command{
 		Usage:    "WireGuard Watchdog",
-		Version:  "v1.30",
+		Version:  "v1.40",
 		Commands: cmds,
 	}
 
-	err := app.Run(os.Args)
+	err := cmd.Run(context.Background(), os.Args)
 	if err != nil {
 		log.Fatal(err)
 	}

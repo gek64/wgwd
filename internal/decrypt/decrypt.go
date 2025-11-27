@@ -4,8 +4,8 @@ import (
 	"crypto/sha256"
 	"os"
 
-	"github.com/gek64/gek/gCrypto"
-	"github.com/gek64/gek/gCrypto/padding"
+	"github.com/unix755/xtools/xCrypto"
+	"github.com/unix755/xtools/xCrypto/padding"
 	"golang.org/x/crypto/chacha20poly1305"
 )
 
@@ -18,7 +18,7 @@ func FromBytes(ciphertext []byte, key []byte) (plaintext []byte, err error) {
 	default:
 		key = padding.ZeroPadding(key, chacha20poly1305.KeySize)
 		key = key[0:chacha20poly1305.KeySize]
-		return gCrypto.NewChaCha20Poly1305WithHashAD(key, sha256.New()).Decrypt(ciphertext)
+		return xCrypto.NewChaCha20Poly1305WithHashAD(key, sha256.New()).Decrypt(ciphertext)
 	}
 }
 

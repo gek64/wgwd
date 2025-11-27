@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/gek64/gek/gExec"
+	"github.com/unix755/xtools/xExec"
 )
 
 type EndpointConfig struct {
@@ -56,7 +56,7 @@ func (e *EndpointConfig) SetAddrPort(addrPort netip.AddrPort) error {
 
 // ApplyEndpointConfig 应用 endpoint
 func (e *EndpointConfig) ApplyEndpointConfig(wgInterface string) (err error) {
-	return gExec.Run(exec.Command("wg", "set", wgInterface, "peer", e.PublicKey, "endpoint", e.AddrPort.String()))
+	return xExec.Run(exec.Command("wg", "set", wgInterface, "peer", e.PublicKey, "endpoint", e.AddrPort.String()))
 }
 
 // ApplyNewEndpointConfig 对当前 endpoint 进行修改后再应用
